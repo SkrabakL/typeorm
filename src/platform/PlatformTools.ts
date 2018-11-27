@@ -96,6 +96,13 @@ export class PlatformTools {
                 */
                 case "mssql":
                     return require("mssql");
+                    
+                /**
+                 * IBM DB2
+                 */ 
+                case "db2":
+                case "ibm_db":
+                    return require("ibm_db");
 
                 /**
                 * other modules

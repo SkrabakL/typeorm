@@ -1,185 +1,193 @@
 /**
  * Column types used for @PrimaryGeneratedColumn() decorator.
  */
-export type PrimaryGeneratedColumnType = "int" // mysql, mssql, oracle, sqlite
-    |"int2" // postgres, sqlite
-    |"int2" // postgres, sqlite
-    |"int4" // postgres
-    |"int8" // postgres, sqlite
-    |"integer" // postgres, oracle, sqlite
-    |"tinyint" // mysql, mssql, sqlite
-    |"smallint" // mysql, postgres, mssql, oracle, sqlite
-    |"mediumint" // mysql, sqlite
-    |"bigint" // mysql, postgres, mssql, sqlite
-    |"dec" // oracle, mssql
-    |"decimal" // mysql, postgres, mssql, sqlite
-    |"numeric" // postgres, mssql, sqlite
-    |"number"; // oracle
+export type PrimaryGeneratedColumnType =
+  | "int" // mysql, mssql, oracle, sqlite
+  | "int2" // postgres, sqlite
+  | "int2" // postgres, sqlite
+  | "int4" // postgres
+  | "int8" // postgres, sqlite
+  | "integer" // postgres, oracle, sqlite
+  | "tinyint" // mysql, mssql, sqlite
+  | "smallint" // mysql, postgres, mssql, oracle, sqlite, db2
+  | "mediumint" // mysql, sqlite
+  | "bigint" // mysql, postgres, mssql, sqlite
+  | "dec" // oracle, mssql
+  | "decimal" // mysql, postgres, mssql, sqlite
+  | "numeric" // postgres, mssql, sqlite
+  | "number"; // oracle
 
 /**
  * Column types where spatial properties are used.
  */
-export type SpatialColumnType = "geometry" // postgres
-    |"geography"; // postgres
+export type SpatialColumnType =
+  | "geometry" // postgres
+  | "geography"; // postgres
 
 /**
  * Column types where precision and scale properties are used.
  */
-export type WithPrecisionColumnType = "float" // mysql, mssql, oracle, sqlite
-    |"double" // mysql, sqlite
-    |"dec" // oracle, mssql
-    |"decimal" // mysql, postgres, mssql, sqlite
-    |"numeric" // postgres, mssql, sqlite
-    |"real" // mysql, postgres, mssql, oracle, sqlite
-    |"double precision" // postgres, oracle, sqlite
-    |"number" // oracle
-    |"datetime" // mssql, mysql, sqlite
-    |"datetime2" // mssql
-    |"datetimeoffset" // mssql
-    |"time" // mysql, postgres, mssql
-    |"time with time zone" // postgres
-    |"time without time zone" // postgres
-    |"timestamp" // mysql, postgres, mssql, oracle
-    |"timestamp without time zone" // postgres
-    |"timestamp with time zone" // postgres, oracle
-    |"timestamp with local time zone"; // oracle
+export type WithPrecisionColumnType =
+  | "float" // mysql, mssql, oracle, sqlite, db2
+  | "double" // mysql, sqlite, db2
+  | "dec" // oracle, mssql
+  | "decfloat" // db2
+  | "decimal" // mysql, postgres, mssql, sqlite, db2
+  | "numeric" // postgres, mssql, sqlite, db2
+  | "real" // mysql, postgres, mssql, oracle, sqlite, db2
+  | "double precision" // postgres, oracle, sqlite
+  | "number" // oracle
+  | "datetime" // mssql, mysql, sqlite
+  | "datetime2" // mssql
+  | "datetimeoffset" // mssql
+  | "time" // mysql, postgres, mssql, db2
+  | "time with time zone" // postgres
+  | "time without time zone" // postgres
+  | "timestamp" // mysql, postgres, mssql, oracle, db2
+  | "timestamp without time zone" // postgres
+  | "timestamp with time zone" // postgres, oracle
+  | "timestamp with local time zone"; // oracle
 
 /**
  * Column types where column length is used.
  */
-export type WithLengthColumnType = "character varying" // postgres
-    |"varying character" // sqlite
-    |"nvarchar" // mssql
-    |"character" // mysql, postgres, sqlite
-    |"native character" // sqlite
-    |"varchar" // mysql, postgres, mssql, sqlite
-    |"char" // mysql, postgres, mssql, oracle
-    |"nchar" // mssql, oracle, sqlite
-    |"varchar2" // oracle
-    |"nvarchar2" // oracle, sqlite
-    |"raw" // oracle
-    |"binary" // mssql
-    |"varbinary"; // mssql
+export type WithLengthColumnType =
+  | "character varying" // postgres
+  | "varying character" // sqlite
+  | "nvarchar" // mssql
+  | "character" // mysql, postgres, sqlite
+  | "native character" // sqlite
+  | "varchar" // mysql, postgres, mssql, sqlite
+  | "char" // mysql, postgres, mssql, oracle
+  | "nchar" // mssql, oracle, sqlite
+  | "varchar2" // oracle
+  | "nvarchar2" // oracle, sqlite
+  | "raw" // oracle
+  | "binary" // mssql
+  | "varbinary"; // mssql
 
-export type WithWidthColumnType = "tinyint" // mysql
-    |"smallint" // mysql
-    |"mediumint" // mysql
-    |"int" // mysql
-    |"bigint"; // mysql
+export type WithWidthColumnType =
+  | "tinyint" // mysql
+  | "smallint" // mysql
+  | "mediumint" // mysql
+  | "int" // mysql
+  | "bigint"; // mysql, db2
 
 /**
  * All other regular column types.
  */
 export type SimpleColumnType =
+  | "simple-array" // typeorm-specific, automatically mapped to string
+  // |"string" // typeorm-specific, automatically mapped to varchar depend on platform
+  | "simple-json" // typeorm-specific, automatically mapped to string
 
-    "simple-array" // typeorm-specific, automatically mapped to string
-    // |"string" // typeorm-specific, automatically mapped to varchar depend on platform
+  // numeric types
+  | "bit" // mssql
+  | "int2" // postgres, sqlite
+  | "integer" // postgres, oracle, sqlite, db2
+  | "int4" // postgres
+  | "int8" // postgres, sqlite
+  | "unsigned big int" // sqlite
+  | "float4" // postgres
+  | "float8" // postgres
+  | "smallmoney" // mssql
+  | "money" // postgres, mssql
 
-    |"simple-json" // typeorm-specific, automatically mapped to string
+  // boolean types
+  | "boolean" // postgres, sqlite
+  | "bool" // postgres
 
-    // numeric types
-    |"bit" // mssql
-    |"int2" // postgres, sqlite
-    |"integer" // postgres, oracle, sqlite
-    |"int4" // postgres
-    |"int8" // postgres, sqlite
-    |"unsigned big int" // sqlite
-    |"float4" // postgres
-    |"float8" // postgres
-    |"smallmoney" // mssql
-    |"money" // postgres, mssql
+  // text/binary types
+  | "tinyblob" // mysql
+  | "tinytext" // mysql
+  | "mediumblob" // mysql
+  | "mediumtext" // mysql
+  | "blob" // mysql, oracle, sqlite, db2
+  | "text" // mysql, postgres, mssql, sqlite
+  | "ntext" // mssql
+  | "citext" // postgres
+  | "hstore" // postgres
+  | "longblob" // mysql
+  | "longtext" // mysql
+  | "bytea" // postgres
+  | "long" // oracle
+  | "raw" // oracle
+  | "long raw" // oracle
+  | "bfile" // oracle
+  | "clob" // oracle, sqlite, db2
+  | "dbclob" // db2
+  | "nclob" // oracle
+  | "image" // mssql
+  | "graphic" // db2
+  | "vargraphic" //db2
 
-    // boolean types
-    |"boolean" // postgres, sqlite
-    |"bool" // postgres
+  // date types
+  | "timetz"
+  | "timestamptz"
+  | "timestamp with local time zone" // oracle
+  | "smalldatetime" // mssql
+  | "date" // mysql, postgres, mssql, oracle, sqlite, db2
+  | "interval year to month" // oracle
+  | "interval day to second" // oracle
+  | "interval" // postgres
+  | "year" // mysql
 
-    // text/binary types
-    |"tinyblob" // mysql
-    |"tinytext" // mysql
-    |"mediumblob" // mysql
-    |"mediumtext" // mysql
-    |"blob" // mysql, oracle, sqlite
-    |"text" // mysql, postgres, mssql, sqlite
-    |"ntext" // mssql
-    |"citext" // postgres
-    |"hstore" // postgres
-    |"longblob" // mysql
-    |"longtext" // mysql
-    |"bytea" // postgres
-    |"long" // oracle
-    |"raw" // oracle
-    |"long raw" // oracle
-    |"bfile" // oracle
-    |"clob" // oracle, sqlite
-    |"nclob" // oracle
-    |"image" // mssql
+  // geometric types
+  | "point" // postgres, mysql
+  | "line" // postgres
+  | "lseg" // postgres
+  | "box" // postgres
+  | "circle" // postgres
+  | "path" // postgres
+  | "polygon" // postgres, mysql
+  | "geography" // mssql
+  | "geometry" // mysql
+  | "linestring" // mysql
+  | "multipoint" // mysql
+  | "multilinestring" // mysql
+  | "multipolygon" // mysql
+  | "geometrycollection" // mysql
 
-    // date types
-    |"timetz"
-    |"timestamptz"
-    |"timestamp with local time zone" // oracle
-    |"smalldatetime" // mssql
-    |"date" // mysql, postgres, mssql, oracle, sqlite
-    |"interval year to month" // oracle
-    |"interval day to second" // oracle
-    |"interval" // postgres
-    |"year" // mysql
+  // range types
+  | "int4range" // postgres
+  | "int8range" // postgres
+  | "numrange" // postgres
+  | "tsrange" // postgres
+  | "tstzrange" // postgres
+  | "daterange" // postgres
 
-    // geometric types
-    |"point" // postgres, mysql
-    |"line" // postgres
-    |"lseg" // postgres
-    |"box" // postgres
-    |"circle" // postgres
-    |"path" // postgres
-    |"polygon" // postgres, mysql
-    |"geography" // mssql
-    |"geometry" // mysql
-    |"linestring" // mysql
-    |"multipoint" // mysql
-    |"multilinestring" // mysql
-    |"multipolygon" // mysql
-    |"geometrycollection" // mysql
-
-    // range types
-    |"int4range" // postgres
-    |"int8range" // postgres
-    |"numrange" // postgres
-    |"tsrange" // postgres
-    |"tstzrange" // postgres
-    |"daterange" // postgres
-
-    // other types
-    |"enum" // mysql, postgres
-    |"cidr" // postgres
-    |"inet" // postgres
-    |"macaddr"// postgres
-    |"bit" // postgres
-    |"bit varying" // postgres
-    |"varbit"// postgres
-    |"tsvector" // postgres
-    |"tsquery" // postgres
-    |"uuid" // postgres
-    |"xml" // mssql, postgres
-    |"json" // mysql, postgres
-    |"jsonb" // postgres
-    |"varbinary" // mssql
-    |"hierarchyid" // mssql
-    |"sql_variant" // mssql
-    |"rowid" // oracle
-    |"urowid" // oracle
-    |"uniqueidentifier" // mssql
-    |"rowversion"; // mssql
+  // other types
+  | "enum" // mysql, postgres
+  | "cidr" // postgres
+  | "inet" // postgres
+  | "macaddr" // postgres
+  | "bit" // postgres
+  | "bit varying" // postgres
+  | "varbit" // postgres
+  | "tsvector" // postgres
+  | "tsquery" // postgres
+  | "uuid" // postgres
+  | "xml" // mssql, postgres, db2
+  | "json" // mysql, postgres
+  | "jsonb" // postgres
+  | "varbinary" // mssql
+  | "hierarchyid" // mssql
+  | "sql_variant" // mssql
+  | "rowid" // oracle
+  | "urowid" // oracle
+  | "uniqueidentifier" // mssql
+  | "rowversion"; // mssql
 
 /**
  * Any column type column can be.
  */
-export type ColumnType = WithPrecisionColumnType
-    |WithLengthColumnType
-    |WithWidthColumnType
-    |SpatialColumnType
-    |SimpleColumnType
-    |BooleanConstructor
-    |DateConstructor
-    |NumberConstructor
-    |StringConstructor;
+export type ColumnType =
+  | WithPrecisionColumnType
+  | WithLengthColumnType
+  | WithWidthColumnType
+  | SpatialColumnType
+  | SimpleColumnType
+  | BooleanConstructor
+  | DateConstructor
+  | NumberConstructor
+  | StringConstructor;

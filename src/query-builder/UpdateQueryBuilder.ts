@@ -17,6 +17,7 @@ import {AbstractSqliteDriver} from "../driver/sqlite-abstract/AbstractSqliteDriv
 import {OrderByCondition} from "../find-options/OrderByCondition";
 import {LimitOnUpdateNotSupportedError} from "../error/LimitOnUpdateNotSupportedError";
 import {OracleDriver} from "../driver/oracle/OracleDriver";
+import { DB2Driver } from "../driver/db2/DB2Driver";
 
 /**
  * Allows to build complex sql queries in a fashion way and execute those queries.
@@ -358,6 +359,7 @@ export class UpdateQueryBuilder<Entity> extends QueryBuilder<Entity> implements 
         const newParameters: ObjectLiteral = {};
         let parametersCount =   this.connection.driver instanceof MysqlDriver ||
                                 this.connection.driver instanceof OracleDriver ||
+                                this.connection.driver instanceof DB2Driver ||
                                 this.connection.driver instanceof AbstractSqliteDriver
             ? 0 : Object.keys(this.expressionMap.nativeParameters).length;
         if (metadata) {
@@ -389,6 +391,7 @@ export class UpdateQueryBuilder<Entity> extends QueryBuilder<Entity> implements 
 
                         if (this.connection.driver instanceof MysqlDriver ||
                             this.connection.driver instanceof OracleDriver ||
+                            this.connection.driver instanceof DB2Driver ||
                             this.connection.driver instanceof AbstractSqliteDriver) {
                             newParameters[paramName] = value;
                         } else {
@@ -433,6 +436,7 @@ export class UpdateQueryBuilder<Entity> extends QueryBuilder<Entity> implements 
 
                     if (this.connection.driver instanceof MysqlDriver ||
                         this.connection.driver instanceof OracleDriver ||
+                        this.connection.driver instanceof DB2Driver ||
                         this.connection.driver instanceof AbstractSqliteDriver) {
                         newParameters[key] = value;
                     } else {
@@ -449,6 +453,7 @@ export class UpdateQueryBuilder<Entity> extends QueryBuilder<Entity> implements 
         // because some drivers like mysql depend on order of parameters
         if (this.connection.driver instanceof MysqlDriver ||
             this.connection.driver instanceof OracleDriver ||
+            this.connection.driver instanceof DB2Driver ||
             this.connection.driver instanceof AbstractSqliteDriver) {
             this.expressionMap.nativeParameters = Object.assign(newParameters, this.expressionMap.nativeParameters);
         }
